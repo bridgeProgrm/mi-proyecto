@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.com</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      .contener {
+        position: fixed;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        display: flex;
+        width: calc(100% - 1px);
+        background-color: blue;
+        bottom: 10px;
+        padding: 0 10px;
+        white-space: pre-wrap;
+      }
+      .text {
+        box-sizing: border-box;
+        width: 80%;
+        height: 25px;
+        min-height: 25px;
+        font-size: 17px;
+        line-height: 21px;
+      }
+      .boton {
+        height: 25px;
+      }
+      .impresTitulo {
+        position: relative;
+        left: 20px;
+        width: 80%;
+      }
+      .impres {
+        position: relative;
+        background-color: lightblue;
+        width: 80%;
+        left: 20px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="impresTitulo">Resultado:</p>
+    <p class="impres" id="resultado">sin reusltado</p>
+    <div class="contener">
+      <textarea class="text" id="text"></textarea>
+      <button class="boton" id="boton">Enviar</button>
+    </div>
+    <script>
+      const text = document.getElementById("text");
+      text.addEventListener("input", function() {
+        this.style.height = "25px";
+        if (this.value !== "") {
+          this.style.height = this.scrollHeight + "px";
+        }
+      })
+      const boton = document.getElementById("boton");
+      const resultado = document.getElementById("resultado");
+      boton.addEventListener("click", botonClick)
+      function botonClick(event) {
+        const textoIngresado = text.value.replace(/×/g, "*").replace(/÷/g, "/");
+        const originalConsole = console.log;
+        const resultConsol = [];
+        let resultEval;
+        try {
+          resultEval = eval(textoIngresado);
+          resultado.textContent = resultEval !== undefined ? resultEval : "error";
+        } catch (error) {
+          alert(error)
+        }
+      }
+    </script>
+  </body>
+</html>
